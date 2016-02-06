@@ -1,16 +1,16 @@
 /* In this repo your job is to write functions to make each function call work properly.
-Below is a sample problem 
+Below is a sample problem
 
   //code here for sayHi
 
    sayHi('Hi Katie', function(thingToSay){
       alert(thingToSay);
    });
-   
 
-and what you should write is the sayHi function that makes the code above work, 
-    
-    
+
+and what you should write is the sayHi function that makes the code above work,
+
+
    var sayHi = function(str, cb){
     cb(str);
    }
@@ -18,14 +18,16 @@ and what you should write is the sayHi function that makes the code above work,
    sayHi('Hi Katie', function(thingToSay){
       alert(thingToSay); //should alert ('Hi Katie')'
    });
-    
-    
+
+
 */
 
 
 
-  //Code Here for first
-  
+var first = function(arr, cb) {
+  cb(arr[0]);
+};
+
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 first(names, function(firstName){
@@ -39,7 +41,9 @@ first(names, function(firstName){
 
 
 
-  //Code Here for last
+var last = function(arr, cb) {
+  cb(arr[arr.length - 1]);
+};
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 last(names, function(lastName){
@@ -57,26 +61,35 @@ last(names, function(lastName){
 
 
 
-  //Code Here for multiply
+var multiply = function(x, y, cb) {
+  cb(x * y);
+};
 
 multiply(4, 3, function(answer){
   console.log('The answer is ' + answer); //should console.log 12
-})
-
-
-
+});
 
 
 /* NEXT PROBLEM ---- NEXT PROBLEM ---- NEXT PROBLEM ---- NEXT PROBLEM */
 
 
 
+var contains = function(arr, str, cb) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] === str) cb(true);
+  }
+  cb(false);
+};
+
+// var contains = function(arr, str, cb) {
+//   cb(arr.indexOf(str) !== -1); /*See if you can figure out why this one works too*/
+// };
 
 
-  //Code Here for contains
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 contains(names, 'Colt', function(result){
+  console.log('>>>result', result);
   if(result === true){
     console.log('Colt is in the array');
   } else {
@@ -90,10 +103,14 @@ contains(names, 'Colt', function(result){
 
 /* NEXT PROBLEM ---- NEXT PROBLEM ---- NEXT PROBLEM ---- NEXT PROBLEM */
 
+var uniq = function(arr, cb) {
+  var uniqueObject = {};
+  arr.forEach(function(item) {
+    uniqueObject[item] = null;
+  });
+  cb(Object.keys(uniqueObject));//Look up what Object.keys returns
+};
 
-
-
-    //Code Here for uniq
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 uniq(names, function(uniqArr){
@@ -108,8 +125,12 @@ uniq(names, function(uniqArr){
 
 
 
-
-    //Code Here for each
+//You are essentially rebuilding a more simple form of Array.forEach
+var each = function(arr, cb) {
+  for (var i = 0; i < arr.length; i++) {
+    cb(arr[i], i);
+  }
+};
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 each(names, function(item, indice){
@@ -126,7 +147,11 @@ each(names, function(item, indice){
 
 
 
- //code here for getUserById
+var getUserById = function(collection, id, cb) {
+  collection.forEach(function(item) {
+    if (item.id === id) cb(item);
+  });
+};
 
 var users = [
   {
@@ -150,5 +175,5 @@ var users = [
 ];
 
 getUserById(users, '16t', function(user){
-  console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address); 
+  console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address);
 });
